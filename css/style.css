@@ -32,7 +32,6 @@
     display: none; hidden by default; face classes show certain pips
 }
 
-
 .top-left {
     grid-area: 1/1/2/2; 
 }
@@ -61,9 +60,53 @@
 .bottom-right {
     grid-area: 3/3/4/4;
 }
+/* 
+To Find all the elements with class I need (based on grid) inside element that has class faces (face-x) that I need and show it  */
+/* Face 1 */
+.face-1 .center { 
+    display: block; 
+}
+
+/* Face 2  */
+.face-2 .top-left,
+.face-2 .bottom-right { 
+    display: block; 
+}
+
+/* Face 3 */
+.face-3 .top-left,
+.face-3 .center,
+.face-3 .bottom-right { 
+    display: block; 
+}
+
+/* Face 4 */
+.face-4 .top-left,
+.face-4 .top-right,
+.face-4 .bottom-left,
+.face-4 .bottom-right { 
+    display: block; 
+}
+
+/* Face 5 */
+.face-5 .top-left,
+.face-5 .top-right,
+.face-5 .center,
+.face-5 .bottom-left,
+.face-5 .bottom-right { 
+    display: block; }
+
+/* Face 6 */
+.face-6 .top-left,
+.face-6 .top-right,
+.face-6 .center-left,
+.face-6 .center-right,
+.face-6 .bottom-left,
+.face-6 .bottom-right { display: block; }
+
 
 #scorecard-table, th, td {
     border: 1px solid black;
     margin-top: 10px;
-  }
+}
   
