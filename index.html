@@ -17,68 +17,67 @@
     <h2>Roll Your Dice</h2>
     <div id="dice-container">
         <div class="die face-1" >
-            <div class="dot cuad1"></div>
-            <div class="dot cuad2"></div>
-            <div class="dot cuad3"></div>
-            <div class="dot cuad4"></div>
-            <div class="dot cuad5"></div>
-            <div class="dot cuad6"></div>
-            <div class="dot cuad7"></div>
-            <div class="dot cuad8"></div>
-            <div class="dot cuad9"></div>
+            <div class="dot top-left"></div>
+            <div class="dot top-center"></div>
+            <div class="dot top-right"></div>
+            <div class="dot center-left"></div>
+            <div class="dot center"></div>
+            <div class="dot center-right"></div>
+            <div class="dot bottom-left"></div>
+            <div class="dot bottom-center"></div>
+            <div class="dot bottom-right"></div>
         </div>
         <div class="die face-2" >
-            <div class="dot cuad1"></div>
-            <div class="dot cuad2"></div>
-            <div class="dot cuad3"></div>
-            <div class="dot cuad4"></div>
-            <div class="dot cuad5"></div>
-            <div class="dot cuad6"></div>
-            <div class="dot cuad7"></div>
-            <div class="dot cuad8"></div>
-            <div class="dot cuad9"></div>
+            <div class="dot top-left"></div>
+            <div class="dot top-center"></div>
+            <div class="dot top-right"></div>
+            <div class="dot center-left"></div>
+            <div class="dot center"></div>
+            <div class="dot center-right"></div>
+            <div class="dot bottom-left"></div>
+            <div class="dot bottom-center"></div>
+            <div class="dot bottom-right"></div>
         </div>
         <div class="die face-3" >
-            <div class="dot cuad1"></div>
-            <div class="dot cuad2"></div>
-            <div class="dot cuad3"></div>
-            <div class="dot cuad4"></div>
-            <div class="dot cuad5"></div>
-            <div class="dot cuad6"></div>
-            <div class="dot cuad7"></div>
-            <div class="dot cuad8"></div>
-            <div class="dot cuad9"></div>
+            <div class="dot top-left"></div>
+            <div class="dot top-center"></div>
+            <div class="dot top-right"></div>
+            <div class="dot center-left"></div>
+            <div class="dot center"></div>
+            <div class="dot center-right"></div>
+            <div class="dot bottom-left"></div>
+            <div class="dot bottom-center"></div>
+            <div class="dot bottom-right"></div>
         </div>
         <div class="die face-4" >
-            <div class="dot cuad1"></div>
-            <div class="dot cuad2"></div>
-            <div class="dot cuad3"></div>
-            <div class="dot cuad4"></div>
-            <div class="dot cuad5"></div>
-            <div class="dot cuad6"></div>
-            <div class="dot cuad7"></div>
-            <div class="dot cuad8"></div>
-            <div class="dot cuad9"></div>
+            <div class="dot top-left"></div>
+            <div class="dot top-center"></div>
+            <div class="dot top-right"></div>
+            <div class="dot center-left"></div>
+            <div class="dot center"></div>
+            <div class="dot center-right"></div>
+            <div class="dot bottom-left"></div>
+            <div class="dot bottom-center"></div>
+            <div class="dot bottom-right"></div>
         </div>
         <div class="die face-5" >
-            <div class="dot cuad1"></div>
-            <div class="dot cuad2"></div>
-            <div class="dot cuad3"></div>
-            <div class="dot cuad4"></div>
-            <div class="dot cuad5"></div>
-            <div class="dot cuad6"></div>
-            <div class="dot cuad7"></div>
-            <div class="dot cuad8"></div>
-            <div class="dot cuad9"></div>
+            <div class="dot top-left"></div>
+            <div class="dot top-center"></div>
+            <div class="dot top-right"></div>
+            <div class="dot center-left"></div>
+            <div class="dot center"></div>
+            <div class="dot center-right"></div>
+            <div class="dot bottom-left"></div>
+            <div class="dot bottom-center"></div>
+            <div class="dot bottom-right"></div>
         </div>    
     </div>
     
     <div id="actions">
-    <button id="roll-btn">Roll Dice</button>
-    <button id="roll-btn">Keep</button>
-    <button id="end-turn-btn">Switch Player</button>
-    <button id="reset-btn">Reset Game</button>
-
+        <button id="roll-btn">Roll Dice</button>
+        <button id="keep-btn">Keep</button>
+        <button id="end-turn">Switch Player</button>
+        <button id="reset">Reset Game</button>
     </div>
     
     <div id="status">
@@ -88,46 +87,47 @@
     </section>
     
     <section id="score-section">
-    <h2>Scorecard</h2>
-    
-    <div id="player-select">
-    <label for="player-count">Number of Players:</label>
-    <select id="player-count">
-    <option value="1">1</option>
-    <option value="2" selected>2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    </select>
-    </div>
-    
-    <div id="scorecards">
-    <table id="scorecard-table" border="1">
-    <thead>
-    <tr>
-    <th>Category</th>
-    <th>Player 1</th>
-    <th>Player 2</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr><td>Ones</td><td></td><td></td></tr>
-    <tr><td>Twos</td><td></td><td></td></tr>
-    <tr><td>Threes</td><td></td><td></td></tr>
-    <tr><td>Fours</td><td></td><td></td></tr>
-    <tr><td>Fives</td><td></td><td></td></tr>
-    <tr><td>Sixes</td><td></td><td></td></tr>
-    <tr><td>Three of a Kind</td><td></td><td></td></tr>
-    <tr><td>Four of a Kind</td><td></td><td></td></tr>
-    <tr><td>Full House</td><td></td><td></td></tr>
-    <tr><td>Small Straight</td><td></td><td></td></tr>
-    <tr><td>Large Straight</td><td></td><td></td></tr>
-    <tr><td>Yahtzee</td><td></td><td></td></tr>
-    <tr><td>Chance</td><td></td><td></td></tr>
-    </tbody>
-    </table>
-    </div>
+        <h2>Scorecard</h2>
+        
+        <!-- <div id="player-select">
+        <label for="player-count">Number of Players:</label>
+        <select id="player-count">
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        </select>
+        </div>
+         -->
+        <div id="scorecards">
+        <table id="scorecard-table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Player 1</th>
+                    <th>Player 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Ones</td><td></td><td></td></tr>
+                <tr><td>Twos</td><td></td><td></td></tr>
+                <tr><td>Threes</td><td></td><td></td></tr>
+                <tr><td>Fours</td><td></td><td></td></tr>
+                <tr><td>Fives</td><td></td><td></td></tr>
+                <tr><td>Sixes</td><td></td><td></td></tr>
+                <tr><td>Three of a Kind</td><td></td><td></td></tr>
+                <tr><td>Four of a Kind</td><td></td><td></td></tr>
+                <tr><td>Full House</td><td></td><td></td></tr>
+                <tr><td>Small Straight</td><td></td><td></td></tr>
+                <tr><td>Large Straight</td><td></td><td></td></tr>
+                <tr><td>Yahtzee</td><td></td><td></td></tr>
+                <tr><td>Chance</td><td></td><td></td></tr>
+            </tbody>
+        </table>
+        </div>
     </section>
     </main>
     
 </body>
 </html>
+
