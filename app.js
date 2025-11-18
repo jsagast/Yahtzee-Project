@@ -12,6 +12,8 @@ const gameState={
             fours: null,
             fives: null,
             sixes: null,
+            sum: null,
+            bonus: null,
             threeOfKind: null,
             fourOfKind: null,
             fullHouse: null,
@@ -34,6 +36,8 @@ const gameState={
             fours: null,
             fives: null,
             sixes: null,
+            sum: null,
+            bonus: null,
             threeOfKind: null,
             fourOfKind: null,
             fullHouse: null,
@@ -80,12 +84,13 @@ const rollDice=()=>{
     player.rolls +=1;
     updateDisplay();
     rollsLeftEl.innerText=gameState.rollsCount-=1;
-    upperSection();
+    scoreSection();
 };
 
-const upperSection=()=>{
+const scoreSection=()=>{
     const player=gameState.players[gameState.currentPlayerIndex];
-    let tally = player.diceValue.reduce((acc,dieValue)=>{
+
+    const tally = player.diceValue.reduce((acc,dieValue)=>{
         if(acc[dieValue]){
             acc[dieValue] = acc[dieValue] + 1;
           } else {
@@ -94,40 +99,75 @@ const upperSection=()=>{
           return acc;
         }, {});
     
+    
     const scoreOpts = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'];
+    let scoreThreeOfKind=0;
+    let scoreFourOfKind=0;
+    let scoreYahtzee=0;
+    let scoreSmallStraight = 0;
+    let scoreLargeStraight = 0;
+    let scoreChance=0;
 
+    //upper section, three of kind,four of kind, yahtzee & chance
     for (let face = 1; face <7; face++) {
         const option = scoreOpts[face - 1]; // index = face - 1 to access elements in array 
-        player.scores[option]= tally[face]? tally[face]*face:0;
+        player.scores[option]= tally[face]? tally[face]*face:0;//here I assign values to the upperSection
+        if (tally[face]>=3){
+            scoreThreeOfKind=player.diceValue.reduce((acc,dieValue)=> acc+dieValue,0);
+        };
+        if(tally[face]>=4){
+            scoreFourOfKind=player.diceValue.reduce((acc,dieValue)=> acc+dieValue,0);
+        };
+        if (tally[face] === 5) {
+            scoreYahtzee = 50;
+        };
+        scoreChance=player.diceValue.reduce((acc,dieValue)=>acc+dieValue,0);
     };
 
+    // Small Straight - chain of 4 
+
+    if (tally[1] >= 1 && tally[2] >= 1 && tally[3] >= 1 && tally[4] >= 1) {
+        scoreSmallStraight = 30;
+    } else if (tally[2] >= 1 && tally[3] >= 1 && tally[4] >= 1 && tally[5] >= 1) {
+        scoreSmallStraight = 30;
+    } else if (tally[3] >= 1 && tally[4] >= 1 && tally[5] >= 1 && tally[6] >= 1) {
+        scoreSmallStraight = 30;
+    };
+
+    //Large Straight - chain of 5
+    if (tally[1] >= 1 && tally[2] >= 1 && tally[3] >= 1 && tally[4] >= 1 && tally[5] >= 1) {
+        scoreLargeStraight = 40;
+    }
+    else if (tally[2] >= 1 && tally[3] >= 1 && tally[4] >= 1 && tally[5] >= 1 && tally[6] >= 1) {
+        scoreLargeStraight = 40;
+    };
+
+    // Full House
+    const countOfTally=Object.values(tally);//object is a built in that has access to values of the keys of tally
+    const scoreFullHouse= (countOfTally.includes(3) && countOfTally.includes(2)) ? 25 : 0;
+
+    // Sum for Upper Section
+    const sumUpperSection= player.diceValue.reduce((acc,dieValue)=> acc+dieValue,0);
+
+    //Bonus
+   const bonus= (sumUpperSection>=63)? 35 : 0;
+
+   //Total Score
+   player.totalScore=sumUpperSection+bonus+scoreThreeOfKind+scoreFourOfKind+scoreYahtzee+scoreChance+scoreSmallStraight+scoreLargeStraight+scoreFullHouse;
+
+    // To show in status-scorecard
+    player.scores['threeOfKind']=scoreThreeOfKind;
+    player.scores['fourOfKind']=scoreFourOfKind;
+    player.scores['yahtzee']=scoreYahtzee;
+    player.scores['chance']=scoreChance;
+    player.scores['smallStraight']=scoreSmallStraight;
+    player.scores['largeStraight']=scoreLargeStraight;
+    player.scores['fullHouse']=scoreFullHouse;
+    player.scores['sum']=sumUpperSection;
+    player.scores['bonus']=bonus;
+    
     updateDisplay();
 };
-
-// const threeOfKind=()={ // same functions will be created for 4
-//     //will check value of dice comparing value and adding it's value if they meet the criteria and add it to score cards
-// };
-
-// const fullHouse=()={/
-//     // will check value of dice and determine if full criteria is met
-// };
-
-// const straight=()={
-//     // will explore if large or small straights were achieved and adding 40 to the score card cell that corresponds
-// };
-
-// const chance=()=>{
-    
-// }
-
-// const checkFinalScore=()=>{
-//     //will look through the state to find who won (highest score) when rounds=maxRounds
-//     //will display if player one or two was the winner (call the updateMessage function)
-// };
-
-
-
-
 
 
 const updateDisplay = () => {
@@ -147,8 +187,11 @@ const updateDisplay = () => {
           cell.textContent = player.scores[category];
         } else {
           cell.textContent = '';                // empty if score not yet assigned
-        }
-      });
+        };
+        if(category==='totalScore'){
+            cell.textContent=player.totalScore;
+        };
+    });
 
 };
 
