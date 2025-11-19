@@ -60,17 +60,16 @@ const rollDiceEl=document.querySelector('#roll-btn');
 const resetBtnEl= document.querySelector('#reset');
 const keepAllEl=document.querySelector('#keep-btn');
 const nextRoundEl=document.querySelector('#next-round');
-const scoreCard=document.querySelector('#scorecards');
+// const scoreCard=document.querySelector('#scorecards');
+const scoreCard=document.querySelector('#scorecard-table');
 const rollsLeftEl=document.querySelector('#rolls-left');
 const allCells=document.querySelectorAll('td.p1, td.p2')
-
-//player will select the cell with value(assigned by function with the score that wants for that round)
-// const messageEl=document.querySelector('#message'); 
 
 
 const rollDice=()=>{
 
     keepAllEl.disabled=false;
+    scoreCard.classList.remove('table-disabled');
 
     const player=gameState.players[gameState.currentPlayerIndex];
     
@@ -281,6 +280,9 @@ const keepScore=(event)=>{
         dieEl.classList.add(`face-${dieValue}`); //add face after rolling
     });
     switchPlayer();
+    keepAllEl.disabled=true;
+    scoreCard.classList.add('table-disabled');
+
     
     if (gameState.currentPlayerIndex === 0) {
         gameState.round++;
@@ -347,6 +349,8 @@ const init=()=>{
         cell.textContent='';
         cell.classList.remove('taken');
     });
+    keepAllEl.disabled=true;
+    scoreCard.classList.add('table-disabled');
     updateDisplay();
    
 };
