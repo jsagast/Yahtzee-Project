@@ -150,15 +150,6 @@ const scoreSection=()=>{
     const countOfTally=Object.values(tally);//object is a built in that has access to values of the keys of tally
     const scoreFullHouse= (countOfTally.includes(3) && countOfTally.includes(2)) ? 25 : 0;
 
-    // Sum for Upper Section
-    const sumUpperSection= player.diceValue.reduce((acc,dieValue)=> acc+dieValue,0);
-
-    //Bonus
-   const bonus= (sumUpperSection>=63)? 35 : 0;
-
-   //Total Score
-   player.totalScore=sumUpperSection+bonus+scoreThreeOfKind+scoreFourOfKind+scoreYahtzee+scoreChance+scoreSmallStraight+scoreLargeStraight+scoreFullHouse;
-
     // To show in status-scorecard
     player.scores['threeOfKind']=scoreThreeOfKind;
     player.scores['fourOfKind']=scoreFourOfKind;
@@ -178,23 +169,22 @@ const updateDisplay = () => {
     const scoreCells = document.querySelectorAll(`td.p${gameState.currentPlayerIndex + 1}`);
 
 
+
+    //add face to dice
     player.diceValue.forEach((dieValue, index) => {
       const dieEl = document.querySelector(`#die-${index}`);// to select the right die based on index
       dieEl.classList.remove('face-1','face-2','face-3','face-4','face-5','face-6');// remove current face  
       dieEl.classList.add(`face-${dieValue}`); //add face after rolling
     });
 
+
     scoreCells.forEach(cell => {//iterating through all td p1 elements- query selector returns node list
         const category = cell.dataset.typeScore; // each category defined in my html
-        if (player.scores[category] !== null) {        // only show scores that exist [] because has to be dynamic
+        if (player.scores[category] !== null && !cell.classList.contains('taken')) {        // only show scores that exist [] because has to be dynamic
           cell.textContent = player.scores[category];
-        } else {
-          cell.textContent = '';                // empty if score not yet assigned
-        };
-        if(category==='totalScore'){
-            cell.textContent=player.totalScore;
         };
     });
+
 
 };
 
@@ -209,15 +199,48 @@ const switchPlayer=()=>{
     } else {
         gameState.currentPlayerIndex++;     // move to next
     }
-}
+};
+
+// const calculateTotalScore = (player) => {
+//     return Object.values(player.scores).filter(score=> score!==null).reduce((sum, score) => sum + score, 0); // sum them
+// };
+
+const calculateTotalScore=()=> {
+    const player=gameState.players[gameState.currentPlayerIndex];
+    const cells = document.querySelectorAll(`td.p${gameState.currentPlayerIndex + 1}.taken`);
+    const sumCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='sum']`)
+    const bonusCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='bonus']`)
+
+    console.log(cells);
+    //upper section
+    const scoreOpts = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes']
+
+    const upperSectionValues = Array.from(cells).filter(cell =>scoreOpts.includes(cell.dataset.typeScore));
+    const sumUpperSection= upperSectionValues.reduce((acc,value)=>acc+(Number(value.innerText)),0);
+
+    const bonus=sumUpperSection>=63?35:0;
+
+    player.scores.sum = sumUpperSection;
+    player.scores.bonus = bonus;
+
+    sumCells.textContent = player.scores.sum;
+    bonusCells.textContent = player.scores.bonus;
+
+    //total 
+    return (Array.from(cells).reduce((sum, cell) => sum + Number(cell.textContent || 0), 0))+bonus;
+};
+
 
 const keepScore=(event)=>{
     const typeCell=event.target.dataset.typeScore;
     const player=gameState.players[gameState.currentPlayerIndex];
+    const totalCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='totalScore']`)
+    const sumCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='sum']`)
+    const bonusCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='bonus']`)
+
 
     if(!typeCell) return;
     if(typeCell==='sum'||typeCell==='bonus'||typeCell==='totalScore') return;
-    // if(player.scores[typeCell] !== null) return;
     if(event.target.classList.contains('taken')) return; // write message
 
     const keptScore= player.scores[typeCell];
@@ -232,6 +255,9 @@ const keepScore=(event)=>{
         }
     });
 
+    player.totalScore= calculateTotalScore(player);
+    totalCells.textContent = player.totalScore;
+    
     player.rolls=0;
     player.held=[false,false,false,false,false];
     gameState.rollsCount=3
@@ -245,10 +271,17 @@ const keepScore=(event)=>{
         dieEl.classList.remove('face-1','face-2','face-3','face-4','face-5','face-6');// remove current face  
         dieEl.classList.add(`face-${dieValue}`); //add face after rolling
     });
-
     switchPlayer();
-    // updateDisplay();
+    
+    if (gameState.currentPlayerIndex === 0) {
+        gameState.round++;
 
+        console.log("Round:", gameState.round);
+    
+        if (gameState.round > gameState.maxRounds) {
+            console.log("Game over!");// do this a message
+        }
+    }
 }
 
 const init=()=>{
@@ -316,3 +349,37 @@ scoreCard.addEventListener('click', keepScore)
 rollDiceEl.addEventListener('click', rollDice);
 keepAllEl.addEventListener('click', keepAll)
 resetBtnEl.addEventListener('click', init);
+
+
+// TOMORROW
+
+// const finalizeScores = () => {
+//     gameState.players.forEach(player => {
+//         // Upper section sum
+//         const upperCats = ['ones','twos','threes','fours','fives','sixes'];
+//         const sum = upperCats.reduce((acc, cat) => acc + (player.scores[cat] || 0), 0);
+//         player.scores.sum = sum;
+
+//         // Bonus
+//         player.scores.bonus = sum >= 63 ? 35 : 0;
+
+//         // Lower section sum
+//         const lowerCats = ['threeOfKind','fourOfKind','fullHouse','smallStraight','largeStraight','yahtzee','chance'];
+//         const lowerSum = lowerCats.reduce((acc, cat) => acc + (player.scores[cat] || 0), 0);
+
+//         // Total
+//         player.totalScore = sum + player.scores.bonus + lowerSum;
+
+//         console.log(`${player.name} total score:`, player.totalScore);
+//     });
+// };
+
+// // After keeping the score and switching player
+// if (gameState.round > gameState.maxRounds) {
+//     // All rounds finished, finalize scores
+//     finalizeScores();
+//     alert("Game over! Check the final scores.");
+// } else {
+//     // Otherwise, continue to next round
+//     switchPlayer();
+// }
