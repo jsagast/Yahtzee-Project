@@ -51,8 +51,8 @@ const gameState={
     ],
     round: 1,// will keep number of round and will change up to 13,
     currentPlayerIndex: 0, //this will be a challenge while writing the functions
-    maxRounds: 13,// not sure if this one is necessary
-    rollsCount: 3
+    maxRounds: 13,
+    rollsCount: 3,
 };
 
 
@@ -60,18 +60,19 @@ const rollDiceEl=document.querySelector('#roll-btn');
 const resetBtnEl= document.querySelector('#reset');
 const keepAllEl=document.querySelector('#keep-btn');
 const nextRoundEl=document.querySelector('#next-round');
-// const scoreCard=document.querySelector('#scorecards');
 const scoreCard=document.querySelector('#scorecard-table');
 const rollsLeftEl=document.querySelector('#rolls-left');
 const allCells=document.querySelectorAll('td.p1, td.p2')
-
+const gameStatusMessage=document.querySelector('#game-status');
+const dieEl=document.querySelector('#dice-container')
 
 const rollDice=()=>{
+    const player=gameState.players[gameState.currentPlayerIndex];
 
     keepAllEl.disabled=false;
     scoreCard.classList.remove('table-disabled');
+    gameStatusMessage.innerText= `Round: ${gameState.round}, ${player.name}`;
 
-    const player=gameState.players[gameState.currentPlayerIndex];
     
     if (player.rolls<3){
         for (let i=0;i<player.diceValue.length; i++){
@@ -88,6 +89,22 @@ const rollDice=()=>{
     updateDisplay();
     rollsLeftEl.innerText=gameState.rollsCount-=1;
     scoreSection();
+};
+
+const keepAll=()=>{
+    const player=gameState.players[gameState.currentPlayerIndex];
+    player.held=[true, true, true, true,true]
+};
+
+const holdDice=()=>{
+    for (let i = 0; i < 5; i++) {
+        const dieEl = document.querySelector(`#die-${i}`);
+        dieEl.addEventListener('click', () => {
+            const player = gameState.players[gameState.currentPlayerIndex];
+            player.held[i] = true;// Mark this die as held
+            dieEl.classList.add('held');
+        });
+    };
 };
 
 const scoreSection=()=>{
@@ -199,17 +216,14 @@ const updateDisplay = () => {
 
 };
 
-const keepAll=()=>{
-    const player=gameState.players[gameState.currentPlayerIndex];
-    player.held=[true, true, true, true,true]
-};
-
 const switchPlayer=()=>{
     if (gameState.currentPlayerIndex === gameState.players.length - 1) {
-        gameState.currentPlayerIndex = 0;   // go back to first player
+        gameState.currentPlayerIndex = 0; // go back to first player
     } else {
-        gameState.currentPlayerIndex++;     // move to next
-    }
+        gameState.currentPlayerIndex++;
+    };
+    // gameStatusMessage.innerText=(gameState.players[gameState.currentPlayerIndex].name) ;     // move to next
+
 };
 
 
@@ -272,7 +286,7 @@ const keepScore=(event)=>{
     rollsLeftEl.innerText=gameState.rollsCount;
     player.diceValue=[1,2,3,4,5];
     console.log(player);
-
+    // gameStatusMessage.innerText=player.name
     // do this a function
     player.diceValue.forEach((dieValue, index) => {
         const dieEl = document.querySelector(`#die-${index}`);// to select the right die based on index
@@ -282,13 +296,14 @@ const keepScore=(event)=>{
     switchPlayer();
     keepAllEl.disabled=true;
     scoreCard.classList.add('table-disabled');
+    gameStatusMessage.innerText= `${gameState.players[gameState.currentPlayerIndex].name}`;
 
-    
+
     if (gameState.currentPlayerIndex === 0) {
         gameState.round++;
-        console.log("Round:", gameState.round);// do this message
+        gameStatusMessage.innerText= `Round ${gameState.round} , ${gameState.players[gameState.currentPlayerIndex].name}`;// do this message
         if (gameState.round > gameState.maxRounds) {
-            console.log("Game over! Check the final scores");// do this a message
+            gameStatusMessage.innerText= "Game over! Check the final scores";// do this a message
         };
     }
 }
@@ -351,6 +366,12 @@ const init=()=>{
     });
     keepAllEl.disabled=true;
     scoreCard.classList.add('table-disabled');
+    rollsLeftEl.innerText=gameState.rollsCount
+    gameStatusMessage.innerText=`Let's start playing. It's Player 1's turn!`
+    for (let i = 0; i < 5; i++) {
+        const dieEl = document.querySelector(`#die-${i}`);
+        dieEl.classList.remove('held');   // remove red border in die that was held
+    }
     updateDisplay();
    
 };
@@ -361,4 +382,5 @@ rollDiceEl.addEventListener('click', rollDice);
 keepAllEl.addEventListener('click', keepAll)
 resetBtnEl.addEventListener('click', init);
 
-
+init();
+holdDice();

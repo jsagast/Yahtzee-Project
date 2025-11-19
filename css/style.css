@@ -104,13 +104,19 @@ To Find all the elements with class I need (based on grid) inside element that h
 .face-6 .bottom-left,
 .face-6 .bottom-right { display: block; }
 
-
 #scorecard-table, th, td {
     border: 1px solid black;
     margin-top: 10px;
 }
 
 .table-disabled {
-    pointer-events: none;  /* prevents any clicks on children */
-    opacity: 0.5;          /* optional visual cue */
+    pointer-events: none;  /* prevents any clicks scorecard*/
+}
+
+.taken{
+    color:red;
+}
+
+.held{
+    border: 2px solid red;
 }

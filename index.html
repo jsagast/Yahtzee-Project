@@ -14,75 +14,74 @@
         
     <main>
     <section id="game-area">
-    <h2>Roll Your Dice</h2>
-    <div id="dice-container">
-        <div class="die face-1" id="die-0" >
-            <div class="dot top-left"></div>
-            <div class="dot top-center"></div>
-            <div class="dot top-right"></div>
-            <div class="dot center-left"></div>
-            <div class="dot center"></div>
-            <div class="dot center-right"></div>
-            <div class="dot bottom-left"></div>
-            <div class="dot bottom-center"></div>
-            <div class="dot bottom-right"></div>
-        </div>
-        <div class="die face-2" id="die-1" >
-            <div class="dot top-left"></div>
-            <div class="dot top-center"></div>
-            <div class="dot top-right"></div>
-            <div class="dot center-left"></div>
-            <div class="dot center"></div>
-            <div class="dot center-right"></div>
-            <div class="dot bottom-left"></div>
-            <div class="dot bottom-center"></div>
-            <div class="dot bottom-right"></div>
-        </div>
-        <div class="die face-3" id="die-2" >
-            <div class="dot top-left"></div>
-            <div class="dot top-center"></div>
-            <div class="dot top-right"></div>
-            <div class="dot center-left"></div>
-            <div class="dot center"></div>
-            <div class="dot center-right"></div>
-            <div class="dot bottom-left"></div>
-            <div class="dot bottom-center"></div>
-            <div class="dot bottom-right"></div>
-        </div>
-        <div class="die face-4" id="die-3">
-            <div class="dot top-left"></div>
-            <div class="dot top-center"></div>
-            <div class="dot top-right"></div>
-            <div class="dot center-left"></div>
-            <div class="dot center"></div>
-            <div class="dot center-right"></div>
-            <div class="dot bottom-left"></div>
-            <div class="dot bottom-center"></div>
-            <div class="dot bottom-right"></div>
-        </div>
-        <div class="die face-5"id="die-4" >
-            <div class="dot top-left"></div>
-            <div class="dot top-center"></div>
-            <div class="dot top-right"></div>
-            <div class="dot center-left"></div>
-            <div class="dot center"></div>
-            <div class="dot center-right"></div>
-            <div class="dot bottom-left"></div>
-            <div class="dot bottom-center"></div>
-            <div class="dot bottom-right"></div>
+        <p>Game Status: <span id="game-status"></span></p>
+        <h2>Roll Your Dice</h2>
+        <div id="dice-container">
+            <div class="die face-1" id="die-0" >
+                <div class="dot top-left"></div>
+                <div class="dot top-center"></div>
+                <div class="dot top-right"></div>
+                <div class="dot center-left"></div>
+                <div class="dot center"></div>
+                <div class="dot center-right"></div>
+                <div class="dot bottom-left"></div>
+                <div class="dot bottom-center"></div>
+                <div class="dot bottom-right"></div>
+            </div>
+            <div class="die face-2" id="die-1" >
+                <div class="dot top-left"></div>
+                <div class="dot top-center"></div>
+                <div class="dot top-right"></div>
+                <div class="dot center-left"></div>
+                <div class="dot center"></div>
+                <div class="dot center-right"></div>
+                <div class="dot bottom-left"></div>
+                <div class="dot bottom-center"></div>
+                <div class="dot bottom-right"></div>
+            </div>
+            <div class="die face-3" id="die-2" >
+                <div class="dot top-left"></div>
+                <div class="dot top-center"></div>
+                <div class="dot top-right"></div>
+                <div class="dot center-left"></div>
+                <div class="dot center"></div>
+                <div class="dot center-right"></div>
+                <div class="dot bottom-left"></div>
+                <div class="dot bottom-center"></div>
+                <div class="dot bottom-right"></div>
+            </div>
+            <div class="die face-4" id="die-3">
+                <div class="dot top-left"></div>
+                <div class="dot top-center"></div>
+                <div class="dot top-right"></div>
+                <div class="dot center-left"></div>
+                <div class="dot center"></div>
+                <div class="dot center-right"></div>
+                <div class="dot bottom-left"></div>
+                <div class="dot bottom-center"></div>
+                <div class="dot bottom-right"></div>
+            </div>
+            <div class="die face-5"id="die-4" >
+                <div class="dot top-left"></div>
+                <div class="dot top-center"></div>
+                <div class="dot top-right"></div>
+                <div class="dot center-left"></div>
+                <div class="dot center"></div>
+                <div class="dot center-right"></div>
+                <div class="dot bottom-left"></div>
+                <div class="dot bottom-center"></div>
+                <div class="dot bottom-right"></div>
         </div>    
     </div>
     
     <div id="actions">
         <button id="roll-btn">Roll Dice</button>
         <button disabled id="keep-btn">Keep All</button>
-        <button id="end-turn">Switch Player</button>
         <button id="reset">Reset Game</button>
     </div>
     
     <div id="status">
-    <p>Game Status: <span id="game-status"></span></p>
-    <p>Rolls Left: <span id="rolls-left">3</span></p>
+    <p>Rolls Left: <span id="rolls-left"></span></p>
     </div>
     </section>
     
