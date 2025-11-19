@@ -150,6 +150,18 @@ const scoreSection=()=>{
     const countOfTally=Object.values(tally);//object is a built in that has access to values of the keys of tally
     const scoreFullHouse= (countOfTally.includes(3) && countOfTally.includes(2)) ? 25 : 0;
 
+
+    // Sum for Upper Section
+    const sumUpperSection= player.diceValue.reduce((acc,dieValue)=> acc+dieValue,0);
+
+    //Bonus
+    const bonus= (sumUpperSection>=63)? 35 : 0;
+
+   //Total Score
+    player.totalScore=sumUpperSection+bonus+scoreThreeOfKind+scoreFourOfKind+scoreYahtzee+scoreChance+scoreSmallStraight+scoreLargeStraight+scoreFullHouse;
+
+
+
     // To show in status-scorecard
     player.scores['threeOfKind']=scoreThreeOfKind;
     player.scores['fourOfKind']=scoreFourOfKind;
@@ -201,9 +213,6 @@ const switchPlayer=()=>{
     }
 };
 
-// const calculateTotalScore = (player) => {
-//     return Object.values(player.scores).filter(score=> score!==null).reduce((sum, score) => sum + score, 0); // sum them
-// };
 
 const calculateTotalScore=()=> {
     const player=gameState.players[gameState.currentPlayerIndex];
@@ -275,12 +284,10 @@ const keepScore=(event)=>{
     
     if (gameState.currentPlayerIndex === 0) {
         gameState.round++;
-
-        console.log("Round:", gameState.round);
-    
+        console.log("Round:", gameState.round);// do this message
         if (gameState.round > gameState.maxRounds) {
-            console.log("Game over!");// do this a message
-        }
+            console.log("Game over! Check the final scores");// do this a message
+        };
     }
 }
 
@@ -351,35 +358,3 @@ keepAllEl.addEventListener('click', keepAll)
 resetBtnEl.addEventListener('click', init);
 
 
-// TOMORROW
-
-// const finalizeScores = () => {
-//     gameState.players.forEach(player => {
-//         // Upper section sum
-//         const upperCats = ['ones','twos','threes','fours','fives','sixes'];
-//         const sum = upperCats.reduce((acc, cat) => acc + (player.scores[cat] || 0), 0);
-//         player.scores.sum = sum;
-
-//         // Bonus
-//         player.scores.bonus = sum >= 63 ? 35 : 0;
-
-//         // Lower section sum
-//         const lowerCats = ['threeOfKind','fourOfKind','fullHouse','smallStraight','largeStraight','yahtzee','chance'];
-//         const lowerSum = lowerCats.reduce((acc, cat) => acc + (player.scores[cat] || 0), 0);
-
-//         // Total
-//         player.totalScore = sum + player.scores.bonus + lowerSum;
-
-//         console.log(`${player.name} total score:`, player.totalScore);
-//     });
-// };
-
-// // After keeping the score and switching player
-// if (gameState.round > gameState.maxRounds) {
-//     // All rounds finished, finalize scores
-//     finalizeScores();
-//     alert("Game over! Check the final scores.");
-// } else {
-//     // Otherwise, continue to next round
-//     switchPlayer();
-// }
