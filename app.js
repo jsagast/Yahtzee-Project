@@ -58,16 +58,20 @@ const gameState={
 
 const rollDiceEl=document.querySelector('#roll-btn');
 const resetBtnEl= document.querySelector('#reset');
-const keepEl=document.querySelector('#keep-btn');
+const keepAllEl=document.querySelector('#keep-btn');
 const nextRoundEl=document.querySelector('#next-round');
-const Scorecard=document.querySelector('#scorecards');
+const scoreCard=document.querySelector('#scorecards');
 const rollsLeftEl=document.querySelector('#rolls-left');
+const allCells=document.querySelectorAll('td.p1, td.p2')
 
 //player will select the cell with value(assigned by function with the score that wants for that round)
 // const messageEl=document.querySelector('#message'); 
 
 
 const rollDice=()=>{
+
+    keepAllEl.disabled=false;
+
     const player=gameState.players[gameState.currentPlayerIndex];
     
     if (player.rolls<3){
@@ -169,7 +173,6 @@ const scoreSection=()=>{
     updateDisplay();
 };
 
-
 const updateDisplay = () => {
     const player = gameState.players[gameState.currentPlayerIndex];
     const scoreCells = document.querySelectorAll(`td.p${gameState.currentPlayerIndex + 1}`);
@@ -195,7 +198,58 @@ const updateDisplay = () => {
 
 };
 
+const keepAll=()=>{
+    const player=gameState.players[gameState.currentPlayerIndex];
+    player.held=[true, true, true, true,true]
+};
 
+const switchPlayer=()=>{
+    if (gameState.currentPlayerIndex === gameState.players.length - 1) {
+        gameState.currentPlayerIndex = 0;   // go back to first player
+    } else {
+        gameState.currentPlayerIndex++;     // move to next
+    }
+}
+
+const keepScore=(event)=>{
+    const typeCell=event.target.dataset.typeScore;
+    const player=gameState.players[gameState.currentPlayerIndex];
+
+    if(!typeCell) return;
+    if(typeCell==='sum'||typeCell==='bonus'||typeCell==='totalScore') return;
+    // if(player.scores[typeCell] !== null) return;
+    if(event.target.classList.contains('taken')) return; // write message
+
+    const keptScore= player.scores[typeCell];
+    event.target.textContent= keptScore;
+    event.target.classList.add('taken'); //event.target is the element that was chosen
+
+    const scoreCells = document.querySelectorAll(`td.p${gameState.currentPlayerIndex + 1}`);
+
+    scoreCells.forEach(cell => {
+        if (!cell.classList.contains('taken')) {
+            cell.textContent = '';
+        }
+    });
+
+    player.rolls=0;
+    player.held=[false,false,false,false,false];
+    gameState.rollsCount=3
+    rollsLeftEl.innerText=gameState.rollsCount;
+    player.diceValue=[1,2,3,4,5];
+    console.log(player);
+
+    // do this a function
+    player.diceValue.forEach((dieValue, index) => {
+        const dieEl = document.querySelector(`#die-${index}`);// to select the right die based on index
+        dieEl.classList.remove('face-1','face-2','face-3','face-4','face-5','face-6');// remove current face  
+        dieEl.classList.add(`face-${dieValue}`); //add face after rolling
+    });
+
+    switchPlayer();
+    // updateDisplay();
+
+}
 
 const init=()=>{
     gameState.players=[
@@ -224,7 +278,7 @@ const init=()=>{
             {
             name: 'Player 2',
             diceValue: [1,2,3,4,5],
-            held: false,
+            held: [false,false,false,false,false],
             rolls: 0,
             scores: {//object with status of score card. 
                 ones: null,
@@ -249,11 +303,16 @@ const init=()=>{
     gameState.maxRounds= 13;// not sure if this one is necessary
     gameState.rollsCount=3;
     rollsLeftEl.innerText=gameState.rollsCount;
+    allCells.forEach((cell)=>{
+        cell.textContent='';
+        cell.classList.remove('taken');
+    });
     updateDisplay();
    
 };
 
 
-
+scoreCard.addEventListener('click', keepScore)
 rollDiceEl.addEventListener('click', rollDice);
+keepAllEl.addEventListener('click', keepAll)
 resetBtnEl.addEventListener('click', init);
