@@ -66,6 +66,7 @@ const allCells=document.querySelectorAll('td.p1, td.p2')
 const gameStatusMessage=document.querySelector('#game-status');
 const dieEl=document.querySelector('#dice-container');
 const diceEl=document.querySelectorAll('.die');
+const yahtzeeCell = document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='yahtzee']`);
 
 const rollDice=()=>{
     const player=gameState.players[gameState.currentPlayerIndex];
@@ -143,8 +144,23 @@ const scoreSection=()=>{
         if(tally[face]>=4){
             scoreFourOfKind=player.diceValue.reduce((acc,dieValue)=> acc+dieValue,0);
         };
-        if (tally[face] === 5) {
+        // if (tally[face] === 5) {
+        //     scoreYahtzee=50;
+        // };
+        if(tally[face]===5 && player.scores.yahtzee===null){
+            const allPlayerCells= document.querySelectorAll(`td.p${gameState.currentPlayerIndex + 1}`);
+            allPlayerCells.forEach(playerCell => {
+                const type = playerCell.dataset.typeScore;
+                if (type !== 'yahtzee') {
+                    playerCell.classList.add('disabled'); 
+                }
+            });
             scoreYahtzee=50;
+            rollDiceEl.disabled = true;
+        }else if (tally[face]===5 && player.scores.yahtzee !== null){
+            scoreYahtzee=player.scores.yahtzee + 100;
+            rollDiceEl.disabled = true;
+            yahtzeeCell.classList.add('yahtzee-disabled');
         };
         scoreChance=player.diceValue.reduce((acc,dieValue)=>acc+dieValue,0);
     };
@@ -211,13 +227,13 @@ const updateDisplay = () => {
 
     scoreCells.forEach(cell => {//iterating through all td p1 elements- query selector returns node list
         const category = cell.dataset.typeScore; // each category defined in my html
-        if (player.scores[category] !== null && !cell.classList.contains('taken')) {        // only show scores that exist [] because has to be dynamic
+        if (player.scores[category] !== null && !cell.classList.contains('taken')||category==='yahtzee') {        // only show scores that exist [] because has to be dynamic
           cell.textContent = player.scores[category];
         };
-        if(category==='yahtzee' && cell.classList.contains('taken')){
-            console.log(cell.innerText);
-            cell.innerText= Number(cell.innerText)+50;
-        };
+        // if(category==='yahtzee' && cell.classList.contains('taken')){
+        //     console.log(cell.innerText);
+        //     cell.innerText= Number(cell.innerText)+50;
+        // };
     });
 
 
@@ -262,11 +278,13 @@ const keepScore=(event)=>{
     const typeCell=event.target.dataset.typeScore;
     const player=gameState.players[gameState.currentPlayerIndex];
     const totalCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='totalScore']`)
+    const allPlayerCells= document.querySelectorAll(`td.p${gameState.currentPlayerIndex + 1}`);
 
 
     if(!typeCell) return;
     if(typeCell==='sum'||typeCell==='bonus'||typeCell==='totalScore') return;
-    if(event.target.classList.contains('taken')) return; 
+    if (event.target.classList.contains('disabled')) return;
+    if(typeCell !=='yahtzee'&& event.target.classList.contains('taken')) return; // yahtzee bonus
 
     const keptScore= player.scores[typeCell];
     event.target.textContent= keptScore;
@@ -286,6 +304,9 @@ const keepScore=(event)=>{
     player.rolls=0;
     player.held=[false,false,false,false,false];
     gameState.rollsCount=3
+    rollDiceEl.disabled = false;
+    yahtzeeCell.classList.remove('yahtzee-disabled');
+    allPlayerCells.forEach(playerCell=>{playerCell.classList.remove('disabled')});
     rollsLeftEl.innerText=gameState.rollsCount;
     player.diceValue=[1,2,3,4,5];
     
@@ -371,6 +392,7 @@ const init=()=>{
     });
     keepAllEl.disabled=true;
     scoreCard.classList.add('table-disabled');
+    rollDiceEl.disabled = false;
     rollsLeftEl.innerText=gameState.rollsCount
     gameStatusMessage.innerText=`Let's start playing. It's Player 1's turn!`
     for (let i = 0; i < 5; i++) {

@@ -132,6 +132,7 @@ To Find all the elements with class I need (based on grid) inside element that h
 #scorecard-table{
     width: 100%;
 }
+
 .table-disabled {
     pointer-events: none;  /* prevents any clicks scorecard*/
 }
@@ -172,4 +173,13 @@ p {
 
 #score-section{
     height: 20px;
+}
+.yahtzee-disabled {
+    pointer-events: none;  /* prevents any clicks scorecard*/
+}
+:disabled{
+    opacity:0.5;
+}
+.disabled{
+    pointer-events: none;
 }
