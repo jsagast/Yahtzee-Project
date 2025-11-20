@@ -130,7 +130,7 @@ To Find all the elements with class I need (based on grid) inside element that h
 }
 
 #scorecard-table{
-    width: 150%;
+    width: 100%;
 }
 .table-disabled {
     pointer-events: none;  /* prevents any clicks scorecard*/
