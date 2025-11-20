@@ -321,10 +321,15 @@ const keepScore=(event)=>{
         gameState.round++;
         gameStatusMessage.innerText= `Round ${gameState.round} , ${gameState.players[gameState.currentPlayerIndex].name}`;
         if (gameState.round > gameState.maxRounds) {
-            gameStatusMessage.innerText= "Game over! Check the final scores";
+            if(gameState.players[0].totalScore>gameState.players[1].totalScore){
+                gameStatusMessage.innerText= 'Game over! Player 1 Wins';
+            }else if(gameState.players[0].totalScore<gameState.players[1].totalScore){
+                gameStatusMessage.innerText= ' Game over! Player 2 Wins'
+            }else{gameStatusMessage.innerText= `Game over! It's a tie`};
         };
     }
-}
+
+};
 
 const init=()=>{
     gameState.players=[
