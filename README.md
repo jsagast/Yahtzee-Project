@@ -70,6 +70,9 @@ rollDice() , holdDice(), scoreSection(), updateDisplay(), etc.
 
 - [w3school](https://www.w3schools.com/)
 
+#### Future Enhancements
+---
+- Future goals for this project could include a multi-player option (user selecting number of player), and the addition of new animation features (CSS or any other UX tool).
 
 ### Lets Play
 ---
