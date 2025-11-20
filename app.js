@@ -27,7 +27,7 @@ const gameState={
         {
         name: 'Player 2',
         diceValue: [1,2,3,4,5],
-        held: false,
+        held: [false,false,false,false,false],
         rolls: 0,
         scores: {//object with status of score card. 
             ones: null,
@@ -64,7 +64,8 @@ const scoreCard=document.querySelector('#scorecard-table');
 const rollsLeftEl=document.querySelector('#rolls-left');
 const allCells=document.querySelectorAll('td.p1, td.p2')
 const gameStatusMessage=document.querySelector('#game-status');
-const dieEl=document.querySelector('#dice-container')
+const dieEl=document.querySelector('#dice-container');
+const diceEl=document.querySelectorAll('.die');
 
 const rollDice=()=>{
     const player=gameState.players[gameState.currentPlayerIndex];
@@ -94,7 +95,10 @@ const rollDice=()=>{
 
 const keepAll=()=>{
     const player=gameState.players[gameState.currentPlayerIndex];
-    player.held=[true, true, true, true,true]
+    player.held=[true, true, true, true,true];
+    diceEl.forEach(die => {
+        die.classList.add('held');
+    });
 };
 
 const holdDice=()=>{
@@ -287,14 +291,17 @@ const keepScore=(event)=>{
     
     // could do this a function
     player.diceValue.forEach((dieValue, index) => {
-        const dieEl = document.querySelector(`#die-${index}`);// to select the right die based on index
-        dieEl.classList.remove('face-1','face-2','face-3','face-4','face-5','face-6');// remove current face  
-        dieEl.classList.add(`face-${dieValue}`); //add face after rolling
+        const dieEl = document.querySelector(`#die-${index}`);
+        dieEl.classList.remove('face-1','face-2','face-3','face-4','face-5','face-6'); 
+        dieEl.classList.add(`face-${dieValue}`); 
     });
     switchPlayer();
     keepAllEl.disabled=true;
     scoreCard.classList.add('table-disabled');
     gameStatusMessage.innerText= `${gameState.players[gameState.currentPlayerIndex].name}`;
+    diceEl.forEach(die => {
+        die.classList.remove('held');
+    });
 
 
     if (gameState.currentPlayerIndex === 0) {

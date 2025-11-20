@@ -73,6 +73,6 @@ rollDice() , holdDice(), scoreSection(), updateDisplay(), etc.
 
 ### Lets Play
 ---
-Check out the following link to play and have fun with one of your friends (or with you alter ego character) [Yahtzee Game](https://jsagast.github.io/Yahtzee-Project/)
+Check out the following link to play and have fun with one of your friends (or with you alter ego character) [Yahtzee Game Deployed](https://jsagast.github.io/Yahtzee-Project/)
 
 Yahtzee  :rocket::boom:
