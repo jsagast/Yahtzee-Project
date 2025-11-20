@@ -130,21 +130,18 @@ To Find all the elements with class I need (based on grid) inside element that h
 }
 
 #scorecard-table{
-    width: 100%;
+    width: 30%;
 }
 
 .table-disabled {
     pointer-events: none;  /* prevents any clicks scorecard*/
 }
-
 .taken{
     color:red;
 }
-
 .held{
     border: 2px solid red;
 }
-
 button{
   color: #fff;
   padding: 15px 25px;
@@ -165,12 +162,10 @@ p {
     font-weight: bold;
     margin: 10px 0px;
 }
-
 #rolls-left, #game-status{
     font-weight: bold;
     font-size: 25px ;
 }
-
 #score-section{
     height: 20px;
 }
@@ -182,4 +177,9 @@ p {
 }
 .disabled{
     pointer-events: none;
+}
+#instructions{
+    font-size: medium;
+    width: 50%;
+    text-align: justify;
 }

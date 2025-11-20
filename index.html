@@ -13,110 +13,106 @@
     </header>
         
     <main>
-    <section id="game-area">
-        <p>Game Status: <span id="game-status"></span></p>
-        <h2>Roll Your Dice</h2>
-        <div id="dice-container">
-            <div class="die face-1" id="die-0" >
-                <div class="dot top-left"></div>
-                <div class="dot top-center"></div>
-                <div class="dot top-right"></div>
-                <div class="dot center-left"></div>
-                <div class="dot center"></div>
-                <div class="dot center-right"></div>
-                <div class="dot bottom-left"></div>
-                <div class="dot bottom-center"></div>
-                <div class="dot bottom-right"></div>
+        <section id="game-area">
+            <p>Game Status: <span id="game-status"></span></p>
+            <h2>Roll Your Dice</h2>
+            <div id="dice-container">
+                <div class="die face-1" id="die-0" >
+                    <div class="dot top-left"></div>
+                    <div class="dot top-center"></div>
+                    <div class="dot top-right"></div>
+                    <div class="dot center-left"></div>
+                    <div class="dot center"></div>
+                    <div class="dot center-right"></div>
+                    <div class="dot bottom-left"></div>
+                    <div class="dot bottom-center"></div>
+                    <div class="dot bottom-right"></div>
+                </div>
+                <div class="die face-2" id="die-1" >
+                    <div class="dot top-left"></div>
+                    <div class="dot top-center"></div>
+                    <div class="dot top-right"></div>
+                    <div class="dot center-left"></div>
+                    <div class="dot center"></div>
+                    <div class="dot center-right"></div>
+                    <div class="dot bottom-left"></div>
+                    <div class="dot bottom-center"></div>
+                    <div class="dot bottom-right"></div>
+                </div>
+                <div class="die face-3" id="die-2" >
+                    <div class="dot top-left"></div>
+                    <div class="dot top-center"></div>
+                    <div class="dot top-right"></div>
+                    <div class="dot center-left"></div>
+                    <div class="dot center"></div>
+                    <div class="dot center-right"></div>
+                    <div class="dot bottom-left"></div>
+                    <div class="dot bottom-center"></div>
+                    <div class="dot bottom-right"></div>
+                </div>
+                <div class="die face-4" id="die-3">
+                    <div class="dot top-left"></div>
+                    <div class="dot top-center"></div>
+                    <div class="dot top-right"></div>
+                    <div class="dot center-left"></div>
+                    <div class="dot center"></div>
+                    <div class="dot center-right"></div>
+                    <div class="dot bottom-left"></div>
+                    <div class="dot bottom-center"></div>
+                    <div class="dot bottom-right"></div>
+                </div>
+                <div class="die face-5"id="die-4" >
+                    <div class="dot top-left"></div>
+                    <div class="dot top-center"></div>
+                    <div class="dot top-right"></div>
+                    <div class="dot center-left"></div>
+                    <div class="dot center"></div>
+                    <div class="dot center-right"></div>
+                    <div class="dot bottom-left"></div>
+                    <div class="dot bottom-center"></div>
+                    <div class="dot bottom-right"></div>
+                </div>    
             </div>
-            <div class="die face-2" id="die-1" >
-                <div class="dot top-left"></div>
-                <div class="dot top-center"></div>
-                <div class="dot top-right"></div>
-                <div class="dot center-left"></div>
-                <div class="dot center"></div>
-                <div class="dot center-right"></div>
-                <div class="dot bottom-left"></div>
-                <div class="dot bottom-center"></div>
-                <div class="dot bottom-right"></div>
-            </div>
-            <div class="die face-3" id="die-2" >
-                <div class="dot top-left"></div>
-                <div class="dot top-center"></div>
-                <div class="dot top-right"></div>
-                <div class="dot center-left"></div>
-                <div class="dot center"></div>
-                <div class="dot center-right"></div>
-                <div class="dot bottom-left"></div>
-                <div class="dot bottom-center"></div>
-                <div class="dot bottom-right"></div>
-            </div>
-            <div class="die face-4" id="die-3">
-                <div class="dot top-left"></div>
-                <div class="dot top-center"></div>
-                <div class="dot top-right"></div>
-                <div class="dot center-left"></div>
-                <div class="dot center"></div>
-                <div class="dot center-right"></div>
-                <div class="dot bottom-left"></div>
-                <div class="dot bottom-center"></div>
-                <div class="dot bottom-right"></div>
-            </div>
-            <div class="die face-5"id="die-4" >
-                <div class="dot top-left"></div>
-                <div class="dot top-center"></div>
-                <div class="dot top-right"></div>
-                <div class="dot center-left"></div>
-                <div class="dot center"></div>
-                <div class="dot center-right"></div>
-                <div class="dot bottom-left"></div>
-                <div class="dot bottom-center"></div>
-                <div class="dot bottom-right"></div>
-        </div>    
-    </div>
-    
-    <div id="actions">
-        <button id="roll-btn">Roll Dice</button>
-        <button disabled id="keep-btn">Keep All</button>
-        <button id="reset">Reset Game</button>
-    </div>
-    
-    <div id="status">
-    <p>Rolls Left: <span id="rolls-left"></span></p>
-    </div>
-    </section>
-    
-    <section id="score-section">
-        <h2>Scorecard</h2>
-        <!-- <div id="scorecards"> -->
-        <table id="scorecard-table" class= "table-disabled" >
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Player 1</th>
-                    <th>Player 2</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Ones</td><td data-type-score="ones" class="p1" ></td><td data-type-score="ones" class="p2"></td></tr>
-                <tr><td>Twos</td><td data-type-score="twos" class="p1"></td><td data-type-score="twos" class="p2"></td></tr>
-                <tr><td>Threes</td><td data-type-score="threes" class="p1"></td><td data-type-score="threes" class="p2"></td></tr>
-                <tr><td>Fours</td><td data-type-score="fours" class="p1"></td><td data-type-score="fours" class="p2"></td></tr>
-                <tr><td>Fives</td><td data-type-score="fives" class="p1"></td><td data-type-score="fives" class="p2"></td></tr>
-                <tr><td>Sixes</td><td data-type-score="sixes" class="p1"></td><td data-type-score="sixes" class="p2"></td></tr>
-                <tr><td>Sum</td><td data-type-score="sum" class="p1"></td><td data-type-score="sum" class="p2"></td></tr>
-                <tr><td>Bonus</td><td data-type-score="bonus" class="p1"></td><td data-type-score="bonus" class="p2"></td></tr>
-                <tr><td>Three of a Kind</td><td data-type-score="threeOfKind" class="p1"></td><td data-type-score="threeOfKind" class="p2"></td></tr>
-                <tr><td>Four of a Kind</td><td data-type-score="fourOfKind" class="p1"></td><td data-type-score="fourOfKind" class="p2"></td></tr>
-                <tr><td>Full House</td><td data-type-score="fullHouse" class="p1"></td><td data-type-score="fullHouse" class="p2"></td></tr>
-                <tr><td>Small Straight</td><td data-type-score="smallStraight" class="p1"></td><td data-type-score="smallStraight" class="p2"></td></tr>
-                <tr><td>Large Straight</td><td data-type-score="largeStraight" class="p1"></td><td data-type-score="largeStraight" class="p2"></td></tr>
-                <tr><td>Yahtzee</td><td data-type-score="yahtzee" class="p1"></td><td data-type-score="yahtzee" class="p2"></td></tr>
-                <tr><td>Chance</td><td data-type-score="chance" class="p1"></td><td data-type-score="chance" class="p2"></td></tr>
-                <tr><td><b>Total Score</b></td><td data-type-score="totalScore" class="p1"></td><td data-type-score="totalScore" class="p2"></td></tr>
-            </tbody>
-        </table>
+        <div id="actions">
+            <button id="roll-btn">Roll Dice</button>
+            <button disabled id="keep-btn">Keep All</button>
+            <button id="reset">Reset Game</button>
         </div>
-    </section>
+        <div id="status">
+            <p>Rolls Left: <span id="rolls-left"></span></p>
+        </div>
+        </section>
+        <section id="score-section">
+            <h2>Scorecard</h2>
+            <table id="scorecard-table" class= "table-disabled" >
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Player 1</th>
+                        <th>Player 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Ones</td><td data-type-score="ones" class="p1" ></td><td data-type-score="ones" class="p2"></td></tr>
+                    <tr><td>Twos</td><td data-type-score="twos" class="p1"></td><td data-type-score="twos" class="p2"></td></tr>
+                    <tr><td>Threes</td><td data-type-score="threes" class="p1"></td><td data-type-score="threes" class="p2"></td></tr>
+                    <tr><td>Fours</td><td data-type-score="fours" class="p1"></td><td data-type-score="fours" class="p2"></td></tr>
+                    <tr><td>Fives</td><td data-type-score="fives" class="p1"></td><td data-type-score="fives" class="p2"></td></tr>
+                    <tr><td>Sixes</td><td data-type-score="sixes" class="p1"></td><td data-type-score="sixes" class="p2"></td></tr>
+                    <tr><td>Sum</td><td data-type-score="sum" class="p1"></td><td data-type-score="sum" class="p2"></td></tr>
+                    <tr><td>Bonus</td><td data-type-score="bonus" class="p1"></td><td data-type-score="bonus" class="p2"></td></tr>
+                    <tr><td>Three of a Kind</td><td data-type-score="threeOfKind" class="p1"></td><td data-type-score="threeOfKind" class="p2"></td></tr>
+                    <tr><td>Four of a Kind</td><td data-type-score="fourOfKind" class="p1"></td><td data-type-score="fourOfKind" class="p2"></td></tr>
+                    <tr><td>Full House</td><td data-type-score="fullHouse" class="p1"></td><td data-type-score="fullHouse" class="p2"></td></tr>
+                    <tr><td>Small Straight</td><td data-type-score="smallStraight" class="p1"></td><td data-type-score="smallStraight" class="p2"></td></tr>
+                    <tr><td>Large Straight</td><td data-type-score="largeStraight" class="p1"></td><td data-type-score="largeStraight" class="p2"></td></tr>
+                    <tr><td>Yahtzee</td><td data-type-score="yahtzee" class="p1"></td><td data-type-score="yahtzee" class="p2"></td></tr>
+                    <tr><td>Chance</td><td data-type-score="chance" class="p1"></td><td data-type-score="chance" class="p2"></td></tr>
+                    <tr><td><b>Total Score</b></td><td data-type-score="totalScore" class="p1"></td><td data-type-score="totalScore" class="p2"></td></tr>
+                </tbody>
+            </table>
+            <p id="instructions">Yahtzee is a dice game where the goal is to score the most points by rolling five dice to make specific combinations.<br> Each player takes turns rolling the dice up to three times per turn, choosing which dice to keep and which to reroll.<br> After rolling, players must choose a category to score, such as Ones, Twos, Threes, Fours, Fives, Sixes, Three of a Kind, Four of a Kind, Full House, Small Straight, Large Straight, Yahtzee, or Chance.<br> Points are calculated based on the category rules, and each category can only be used once per game. <br>A bonus of 35 points is awarded in the Upper Section if the total reaches 63 or more. <br>Rolling multiple Yahtzees after the first earns extra points (100) YOU HAVE TO SELECT ANOTHER CATEGORY IF THIS HAPPENS.<br> The game ends when all categories for all players are filled, and the player with the highest total score wins.</p>
+        </section>
     </main>
     
 </body>

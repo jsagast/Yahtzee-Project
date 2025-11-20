@@ -230,13 +230,7 @@ const updateDisplay = () => {
         if (player.scores[category] !== null && !cell.classList.contains('taken')||category==='yahtzee') {        // only show scores that exist [] because has to be dynamic
           cell.textContent = player.scores[category];
         };
-        // if(category==='yahtzee' && cell.classList.contains('taken')){
-        //     console.log(cell.innerText);
-        //     cell.innerText= Number(cell.innerText)+50;
-        // };
     });
-
-
 };
 
 const switchPlayer=()=>{
@@ -247,7 +241,6 @@ const switchPlayer=()=>{
     };
 
 };
-
 
 const calculateTotalScore=()=> {
     const player=gameState.players[gameState.currentPlayerIndex];
@@ -272,7 +265,6 @@ const calculateTotalScore=()=> {
     //total 
     return (Array.from(cells).reduce((sum, cell) => sum + Number(cell.textContent || 0), 0))+bonus;
 };
-
 
 const keepScore=(event)=>{
     const typeCell=event.target.dataset.typeScore;
@@ -327,9 +319,9 @@ const keepScore=(event)=>{
 
     if (gameState.currentPlayerIndex === 0) {
         gameState.round++;
-        gameStatusMessage.innerText= `Round ${gameState.round} , ${gameState.players[gameState.currentPlayerIndex].name}`;// do this message
+        gameStatusMessage.innerText= `Round ${gameState.round} , ${gameState.players[gameState.currentPlayerIndex].name}`;
         if (gameState.round > gameState.maxRounds) {
-            gameStatusMessage.innerText= "Game over! Check the final scores";// do this a message
+            gameStatusMessage.innerText= "Game over! Check the final scores";
         };
     }
 }
