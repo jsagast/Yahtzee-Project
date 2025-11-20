@@ -78,6 +78,7 @@ const rollDice=()=>{
         for (let i=0;i<player.diceValue.length; i++){
             if(player.held[i]===false){
                 player.diceValue[i]= Math.floor(Math.random()*6)+1;
+                // player.diceValue[i]=5;
             };
         };
     }else{
@@ -139,7 +140,7 @@ const scoreSection=()=>{
             scoreFourOfKind=player.diceValue.reduce((acc,dieValue)=> acc+dieValue,0);
         };
         if (tally[face] === 5) {
-            scoreYahtzee = 50;
+            scoreYahtzee=50;
         };
         scoreChance=player.diceValue.reduce((acc,dieValue)=>acc+dieValue,0);
     };
@@ -177,7 +178,6 @@ const scoreSection=()=>{
     player.totalScore=sumUpperSection+bonus+scoreThreeOfKind+scoreFourOfKind+scoreYahtzee+scoreChance+scoreSmallStraight+scoreLargeStraight+scoreFullHouse;
 
 
-
     // To show in status-scorecard
     player.scores['threeOfKind']=scoreThreeOfKind;
     player.scores['fourOfKind']=scoreFourOfKind;
@@ -186,8 +186,8 @@ const scoreSection=()=>{
     player.scores['smallStraight']=scoreSmallStraight;
     player.scores['largeStraight']=scoreLargeStraight;
     player.scores['fullHouse']=scoreFullHouse;
-    player.scores['sum']=sumUpperSection;
-    player.scores['bonus']=bonus;
+    // player.scores['sum']=sumUpperSection;
+    // player.scores['bonus']=bonus;
     
     updateDisplay();
 };
@@ -205,11 +205,14 @@ const updateDisplay = () => {
       dieEl.classList.add(`face-${dieValue}`); //add face after rolling
     });
 
-
     scoreCells.forEach(cell => {//iterating through all td p1 elements- query selector returns node list
         const category = cell.dataset.typeScore; // each category defined in my html
         if (player.scores[category] !== null && !cell.classList.contains('taken')) {        // only show scores that exist [] because has to be dynamic
           cell.textContent = player.scores[category];
+        };
+        if(category==='yahtzee' && cell.classList.contains('taken')){
+            console.log(cell.innerText);
+            cell.innerText= Number(cell.innerText)+50;
         };
     });
 
@@ -222,7 +225,6 @@ const switchPlayer=()=>{
     } else {
         gameState.currentPlayerIndex++;
     };
-    // gameStatusMessage.innerText=(gameState.players[gameState.currentPlayerIndex].name) ;     // move to next
 
 };
 
@@ -233,7 +235,6 @@ const calculateTotalScore=()=> {
     const sumCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='sum']`)
     const bonusCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='bonus']`)
 
-    console.log(cells);
     //upper section
     const scoreOpts = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes']
 
@@ -257,13 +258,11 @@ const keepScore=(event)=>{
     const typeCell=event.target.dataset.typeScore;
     const player=gameState.players[gameState.currentPlayerIndex];
     const totalCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='totalScore']`)
-    const sumCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='sum']`)
-    const bonusCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='bonus']`)
 
 
     if(!typeCell) return;
     if(typeCell==='sum'||typeCell==='bonus'||typeCell==='totalScore') return;
-    if(event.target.classList.contains('taken')) return; // write message
+    if(event.target.classList.contains('taken')) return; 
 
     const keptScore= player.scores[typeCell];
     event.target.textContent= keptScore;
@@ -285,9 +284,8 @@ const keepScore=(event)=>{
     gameState.rollsCount=3
     rollsLeftEl.innerText=gameState.rollsCount;
     player.diceValue=[1,2,3,4,5];
-    console.log(player);
-    // gameStatusMessage.innerText=player.name
-    // do this a function
+    
+    // could do this a function
     player.diceValue.forEach((dieValue, index) => {
         const dieEl = document.querySelector(`#die-${index}`);// to select the right die based on index
         dieEl.classList.remove('face-1','face-2','face-3','face-4','face-5','face-6');// remove current face  
