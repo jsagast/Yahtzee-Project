@@ -74,22 +74,44 @@ const rollDice=()=>{
     scoreCard.classList.remove('table-disabled');
     gameStatusMessage.innerText= `Round: ${gameState.round}, ${player.name}`;
 
-    
-    if (player.rolls<3){
-        for (let i=0;i<player.diceValue.length; i++){
-            if(player.held[i]===false){
-                player.diceValue[i]= Math.floor(Math.random()*6)+1;
-                // player.diceValue[i]=5;
+   
+
+
+        diceEl.forEach(die => {die.classList.add('rolling')});
+        setTimeout(() => {
+            diceEl.forEach(die => {die.classList.remove('rolling')});
+            if (player.rolls<3){
+                for (let i=0;i<player.diceValue.length; i++){
+                    if(player.held[i]===false){
+                        player.diceValue[i]= Math.floor(Math.random()*6)+1;
+                        // player.diceValue[i]=5;
+                    };
+                };
+            }else{
+                console.log('no rolls left for this round');
+                return;
             };
-        };
-    }else{
-        console.log('no rolls left for this round');
-        return;
-    };
-    player.rolls +=1;
-    updateDisplay();
-    rollsLeftEl.innerText=gameState.rollsCount-=1;
-    scoreSection();
+            player.rolls +=1;
+            updateDisplay();
+            rollsLeftEl.innerText=gameState.rollsCount-=1;
+            scoreSection();
+        }, 500);
+
+    // if (player.rolls<3){
+    // //     for (let i=0;i<player.diceValue.length; i++){
+    // //         if(player.held[i]===false){
+    // //             player.diceValue[i]= Math.floor(Math.random()*6)+1;
+    // //             // player.diceValue[i]=5;
+    // //         };
+    // //     };
+    // // }else{
+    // //     console.log('no rolls left for this round');
+    // //     return;
+    // // };
+    // player.rolls +=1;
+    // updateDisplay();
+    // rollsLeftEl.innerText=gameState.rollsCount-=1;
+    // scoreSection();
 };
 
 const keepAll=()=>{
