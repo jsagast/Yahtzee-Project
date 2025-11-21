@@ -66,7 +66,6 @@ const allCells=document.querySelectorAll('td.p1, td.p2')
 const gameStatusMessage=document.querySelector('#game-status');
 const dieEl=document.querySelector('#dice-container');
 const diceEl=document.querySelectorAll('.die');
-const yahtzeeCell = document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='yahtzee']`);
 
 const rollDice=()=>{
     const player=gameState.players[gameState.currentPlayerIndex];
@@ -84,8 +83,7 @@ const rollDice=()=>{
             };
         };
     }else{
-        //show this as message
-        console.log('no rolls left for this round');// here goes the switch.
+        console.log('no rolls left for this round');
         return;
     };
     player.rolls +=1;
@@ -158,6 +156,7 @@ const scoreSection=()=>{
             scoreYahtzee=50;
             rollDiceEl.disabled = true;
         }else if (tally[face]===5 && player.scores.yahtzee !== null){
+            const yahtzeeCell = document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='yahtzee']`);
             scoreYahtzee=player.scores.yahtzee + 100;
             rollDiceEl.disabled = true;
             yahtzeeCell.classList.add('yahtzee-disabled');
@@ -271,7 +270,7 @@ const keepScore=(event)=>{
     const player=gameState.players[gameState.currentPlayerIndex];
     const totalCells=document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='totalScore']`)
     const allPlayerCells= document.querySelectorAll(`td.p${gameState.currentPlayerIndex + 1}`);
-
+    const yahtzeeCell = document.querySelector(`td.p${gameState.currentPlayerIndex + 1}[data-type-score='yahtzee']`);
 
     if(!typeCell) return;
     if(typeCell==='sum'||typeCell==='bonus'||typeCell==='totalScore') return;
